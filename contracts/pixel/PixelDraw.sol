@@ -21,12 +21,15 @@ contract PixelDraw is Member {
         address _token,
         uint256 _price
     ) {
+        require(_pixel != address(0), "_pixel address cannot be 0");
+        require(_token != address(0), "_token address cannot be 0");
         pixel = _pixel;
         token = _token;
         price = _price;
     }
 
     function setToken(address _token) external CheckPermit("Config") {
+        require(_token != address(0), "_token address cannot be 0");
         token = _token;
     }
 

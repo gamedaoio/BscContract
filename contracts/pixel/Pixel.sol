@@ -60,12 +60,6 @@ contract Pixel is ERC721Ex {
         pixelInfos[pixelId] = info;
     }
 
-    // only the nft of blacklisted users can be destroyed.
-    function burn(uint256 pixelid) external CheckPermit("Config") {
-        _burn(pixelid);
-        delete pixelInfos[pixelid];
-    }
-
     function tokenURI(uint256 _tokenId)
         public
         view
@@ -99,6 +93,10 @@ contract Pixel is ERC721Ex {
         external
         CheckPermit("Config")
     {
+        require(
+            pixelIds.length == tokenURIs.length,
+            "arrays lengths are not the same"
+        );
         for (uint256 i = 0; i < pixelIds.length; i++) {
             pixelInfos[pixelIds[i]].url = tokenURIs[i];
         }
